@@ -12,7 +12,7 @@ const schema = z.object({
   password: z.string().min(5),
 });
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const router = useRouter();
   const {
     register,
@@ -34,23 +34,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex justify-center items-center  inset-0 h-screen ">
+    <div className="flex justify-center items-center inset-0 h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center p-4 sm:p-8 bg-teal-500 md:w-3/5 lg:w-2/5 xl:w-1/5 rounded-md m-4 hover:shadow-lg"
       >
-        <h1 className="text-2xl font-bold text-white">Register</h1>
-        <div className="flex flex-col py-2 w-full">
-          <label className="text-lg text-gray-700">Your Name:</label>
-          <input
-            required
-            type={'text'}
-            name={'name'}
-            placeholder={'Your Name'}
-            {...register('name')}
-            className="text-xl p-2 rounded-md w-full outline-none border-2 ring-0 border-solid focus:border-gray-500"
-          />
-        </div>
+        <h1 className="text-2xl font-bold text-white">Login</h1>
 
         <div className="flex flex-col py-2 w-full">
           <label className="text-lg text-gray-700">Your Email:</label>
@@ -92,10 +81,10 @@ export default function RegisterPage() {
             ' border-2 text-lg rounded-md w-full py-2 my-4 font-bold text-gray-400 transition duration-900 ease-linear'
           }
         >
-          Register
+          Login
         </button>
         <h1 className="text-gray-500">===== Or =====</h1>
-        <div className="flex justify-between gap-2 w-full bg-white rounded-md px-4 py-2 items-center my-2 hover:shadow-md">
+        <div className="flex justify-between w-full bg-white rounded-md px-4 py-2 items-center my-2 hover:shadow-md">
           <div className="relative h-8 w-8">
             <Image
               src={'/google.png'}
@@ -104,11 +93,9 @@ export default function RegisterPage() {
               objectFit="contain"
             />
           </div>
-          <h1 className="text-sm sm:text-lg grow text-center">
-            Sing Up With Google
-          </h1>
+          <h1 className="text-lg grow text-center">Login With Google</h1>
         </div>
-        <div className="flex justify-between gap-2 w-full bg-white rounded-md px-4 py-2 items-center my-2 hover:shadow-md">
+        <div className="flex justify-between w-full bg-white rounded-md px-4 py-2 items-center my-2 hover:shadow-md">
           <div className="relative h-8 w-8">
             <Image
               src={'/twitter.png'}
@@ -117,14 +104,12 @@ export default function RegisterPage() {
               objectFit="contain"
             />
           </div>
-          <h1 className="text-sm sm:text-lg grow text-center">
-            Sing Up With Twitter
-          </h1>
+          <h1 className="text-lg grow text-center">Login With Twitter</h1>
         </div>
-        <Link href={'/login'}>
+        <Link href={'/register'}>
           <h1 className="text-gray-600">
-            Already Have An Account?{' '}
-            <span className="underline text-gray-700"> Login</span>
+            You Don&apos;t Have An Account?
+            <span className="underline text-gray-700"> Sign Up</span>
           </h1>
         </Link>
       </form>
