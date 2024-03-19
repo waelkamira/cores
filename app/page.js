@@ -1,11 +1,12 @@
 import { getServerSession } from 'next-auth';
 import Component from '../components/login-btn';
 import Dashboard from './dashboard/page';
-import { authOptions } from './api/authOptions/route';
-
+import { authOptions } from './api/auth/[...nextauth]/route';
+import bcrypt from 'bcrypt';
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  console.log('this is session', session);
+  const hash = await bcrypt.hash('wael', 10);
+  console.log('this is hash', hash);
   return (
     <main className="flex justify-between items-center p-8 gap-8">
       <div>
@@ -14,7 +15,6 @@ export default async function Home() {
         <h1>{JSON.stringify(session)}</h1>
         {session && <Dashboard />}
       </div>
-      <Component />
     </main>
   );
 }
