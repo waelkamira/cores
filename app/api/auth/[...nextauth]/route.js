@@ -5,10 +5,14 @@ import GoogleProvider from 'next-auth/providers/google';
 import mongoose from 'mongoose';
 import { User } from '../../models/UserModel';
 import bcrypt from 'bcrypt';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+import clientPromise from '../../../../lib/Mongodb';
+import dbConnect from '../../../../lib/dbConnect';
 
 export const authOptions = {
   //?يستخدم للتشفير
   secret: process.env.NEXT_PUBLIC_SECRET,
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GitHubProvider({
       clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
@@ -59,7 +63,7 @@ export const authOptions = {
   //?Browser لحفظ معلومات المستخدم المصادق عليها في ال session طريقة تشفير ال
   session: { strategy: 'jwt' },
 
-  //? لتحديد الاخطاء في بيئة التطوير عند التسجيل
+  //? terminal لتحديد الاخطاء في بيئة التطوير عند التسجيل و عرض الاخطاء في ال
   debug: process.env.NODE_ENV === 'development',
 
   //? لاعادة التوجيه و وضعنا مسار صفحة تسجيل الدخول router بدلا من استخدام pages هنا استخدمنا

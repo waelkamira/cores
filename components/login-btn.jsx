@@ -7,23 +7,27 @@ export default function Component() {
   const { data: session } = useSession();
   if (session) {
     return (
-      <>
-        Signed in as {session?.user?.name} <br />
+      <div className="flex items-center justify-end">
+        <h1 className="text-white">
+          Signed in as{' '}
+          <span className="text-red-400 text-xl ">{session?.user?.name}</span>
+        </h1>{' '}
+        <br />
         <button
           type="text"
           //?حتى يتم اعادة التوجيه الى الصفحة الرئيسية بعد تسجيل الخروج  { callbackUrl: '/' } تم وضع
           onClick={() => signOut({ callbackUrl: '/' })}
-          className="bg-red-400 hover:bg-red-600"
+          className="bg-red-400 hover:bg-red-500 hover:text-white"
         >
           Sign out
         </button>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      Not signed in <br />
+    <div className="flex items-center justify-end">
+      <h1 className="text-white">Not signed in</h1>
       <button
         type="text"
         //?[...nextauth] في  route في صفحة ال  pages في ال  signIn هنا يتم التوجيه الى الصفحة التي تم وضعها كقيمة مقابل
@@ -33,6 +37,6 @@ export default function Component() {
       >
         Sign in
       </button>
-    </>
+    </div>
   );
 }

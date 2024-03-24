@@ -1,19 +1,16 @@
-import { getServerSession } from 'next-auth';
-import Component from '../components/login-btn';
-import Dashboard from './dashboard/page';
-import { authOptions } from './api/auth/[...nextauth]/route';
-import bcrypt from 'bcrypt';
+import { Product } from '../components/Product';
+
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  const hash = await bcrypt.hash('wael', 10);
-  console.log('this is hash', hash);
   return (
-    <main className="flex justify-between items-center p-8 gap-8">
+    <main className="flex flex-col justify-center items-center p-4 gap-8 bg-slate-600 mt-24 border border-red-400">
       <div>
-        <h1>Home Page</h1>
-        <h1>Server Side</h1>
-        <h1>{JSON.stringify(session)}</h1>
-        {session && <Dashboard />}
+        <h1 className="text-center text-3xl text-red-400 font-bold italic m-8">
+          Home Page
+        </h1>
+
+        <div>
+          <Product />
+        </div>
       </div>
     </main>
   );
