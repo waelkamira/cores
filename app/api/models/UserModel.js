@@ -11,4 +11,5 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
+//?اذا كانت موجودة ينشأ مستند داخلها والا ينشأها  وينشأ مستند داخلها models في الموديلز User يقوم بالبحث عن المودل
 export const User = models?.User || model('User', UserSchema);

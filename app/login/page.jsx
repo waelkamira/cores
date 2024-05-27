@@ -11,6 +11,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
+//? 1- react-hook-form نقوم بتنزيل مكتبة
+//? 2- zod و مكتبة react-hook-form للربط بين مكتبة  @hookform/resolvers نقوم بتنزيل مكتبة
+//? 3-  @hookform/resolvers القادم من مكتبة resolver عن طريق useForm الذي يتم تمريره ل  schema لعمل  zod نقوم بتنزيل مكتبة
+///? لمراقبة عمل المكتبة (اختياري) @hookform/devtools نقوم بتنزيل
+
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(5),
@@ -22,6 +27,7 @@ export default function Signin() {
   const {
     register,
     handleSubmit,
+    setError,
     getValues,
     formState: { errors, isValid },
   } = useForm({
@@ -37,10 +43,11 @@ export default function Signin() {
 
   async function onSubmit() {
     try {
+      //? next-auth/react القادمة من signIn() التي تمثل صفحة الروات لتسجيل الدخول في الباك اند عن طريق الدالة  [...nextauth] الى الروات request نقوم بارسال
       const response = await signIn('credentials', {
         //?  useState تعطينا كل القيم المدخلة بدلا من استخدام getValues()
         ...getValues(),
-        //?  next auth المصممة من قبل signin اذا لم نضع هذه القيمة سوف يتم اعادة توجيهنا الى صفحة
+        //? او نبقى في نفس صفحة تسجيل الدخول next auth المصممة من قبل signin اذا لم نضع هذه القيمة سوف يتم اعادة توجيهنا الى صفحة
         redirect: false,
       });
 
@@ -53,6 +60,20 @@ export default function Signin() {
       } else {
         //? هنا قمنا بالتقاط الأخطاء التي تم رميها في الباك اند
         toast.error(response?.error);
+        console.log(response?.error);
+
+        //? هنا قمنا بالتحقق من رسالة الخطأ القادمة من الباك اند و من الذي تسبب بها هل هو خطأ في كتابة الايميل ام الباسورد
+        if (response?.error?.includes('email')) {
+          setError('email', {
+            type: 'custom',
+            message: response.error,
+          });
+        } else {
+          setError('password', {
+            type: 'custom',
+            message: response.error,
+          });
+        }
       }
     } catch (error) {
       console.log(error);

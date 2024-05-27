@@ -28,13 +28,15 @@ export default function RegisterPage() {
     resolver: zodResolver(schema),
   });
 
-  //?يعني ان المستخدم سجل دخول و سوف يتم توجيهه الى الصفحة الرئيسية session اذا كان هنالك
+  //? يعني ان المستخدم سجل دخول و سوف يتم توجيهه الى الصفحة الرئيسية session اذا كان هنالك
   useEffect(() => {
     if (session?.status === 'authenticated') {
       router.push('/');
     }
   }, [session]);
 
+  //? الى الباك اند لتسجيل مستخدم جديد request نرسل
+  //?  register الى الروات
   async function onSubmit() {
     try {
       // console.log('getValues', getValues());
@@ -86,6 +88,7 @@ export default function RegisterPage() {
           <label className="text-sm text-white">Your Email:</label>
           <input
             type={'text'}
+            //? validation التعرف عليها عند عمل zod حتى يستطيع name انتبه يجب وضع الخاصية
             name={'email'}
             placeholder={'Your Email'}
             {...register('email')}

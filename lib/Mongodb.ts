@@ -6,7 +6,7 @@ if (!process.env.NEXT_PUBLIC_Mongodb_url) {
     'Invalid/Missing environment variable: "NEXT_PUBLIC_Mongodb_url"'
   );
 }
-
+//?لاننا لا نحتاجها هنا options قمنا بحذف ال
 const uri: string = process.env.NEXT_PUBLIC_Mongodb_url;
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
